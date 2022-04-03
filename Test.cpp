@@ -9,7 +9,9 @@ TEST_CASE("Test Matrix constructor and methods on valid matrix for small matrix"
     vector<double> vec1 = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     Matrix matrix1(vec1,3,4);
     Matrix matrix2(vec1,4,3);
+    CHECK_THROWS(matrix1*matrix1);
     Matrix matrix3 = -matrix2;
+    cout<<matrix1*matrix2<<endl;
     CHECK_THROWS(matrix1+matrix2);
     CHECK_THROWS(bool ans = (matrix1==matrix2));
     CHECK_NOTHROW(3.7*matrix1);

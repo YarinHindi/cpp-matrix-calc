@@ -40,6 +40,7 @@ int main() {
     a *= -3;
     cout << (a+b) << endl;  // prints the 0 matrix
     cout << (b-a) << endl;
+
     /* prints [6 0 0]
               [0 6 0]
               [0 0 6]*/

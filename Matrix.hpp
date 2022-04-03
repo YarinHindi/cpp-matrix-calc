@@ -8,7 +8,7 @@ namespace zich{
         int col;
         vector<double> mat;
     public:
-        Matrix(vector<double> mat, int rows, int cols);
+        Matrix(vector<double>  mat, int rows, int cols);
 
         bool operator==(Matrix const & mat);
 
@@ -16,15 +16,15 @@ namespace zich{
 
         bool operator<(Matrix const & mat);
 
-        void checkMatSize(Matrix const & mat);
+        void checkMatSize(Matrix const & mat) const;
 
         double getMatAt(int pos);
 
         void setMatAt(int pos,double value);
 
-        int getRows();
+        int getRows() const;
 
-        int getCols();
+        int getCols() const;
 
         bool operator>(Matrix  const & mat);
 
@@ -38,9 +38,11 @@ namespace zich{
 
         void operator--();
 
-        Matrix operator=(const Matrix &);
+        Matrix& operator=(const Matrix &);
 
         Matrix operator*=(double num);
+
+        Matrix operator*(Matrix const &);
 
         Matrix operator*=(const Matrix &);
 

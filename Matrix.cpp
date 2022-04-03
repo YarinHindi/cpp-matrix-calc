@@ -4,16 +4,16 @@
 #include "Matrix.hpp"
 using namespace std;
 using namespace zich;
-Matrix::Matrix(vector<double> mat,int row,int col){
-        this->mat = mat;
+Matrix::Matrix(vector<double>  mat,int row,int col){
+        this->mat = std::move(mat);
         this->row = row;
         this->col = col;
 }
 
-int Matrix::getRows() {
+int Matrix::getRows() const {
     return this->row;
 }
-int Matrix::getCols() {
+int Matrix::getCols() const {
     return this->col;
 }
 double Matrix::getMatAt(int pos) {
@@ -23,7 +23,7 @@ double Matrix::getMatAt(int pos) {
     unsigned int position = (unsigned int)(pos);
     return this->mat.at(position);
 }
-void Matrix::checkMatSize(Matrix const & mat){
+void Matrix::checkMatSize(Matrix const & mat) const{
     if(mat.col!=this->col||mat.row!=this->row){
         throw std::invalid_argument("matrix should be in same size");
     }
@@ -112,6 +112,37 @@ Matrix zich::operator*(double num,Matrix matrix){
     }
     return matrix;
 }
+Matrix Matrix::operator*(const Matrix & matrix) {
+    if (this->col != matrix.row) {
+        throw std::invalid_argument("matrix cannot be multiplied");
+    }
+    vector<double> vec;
+    double temp = 0;
+    int leftMatrixPointer = 0;
+    int rightMatrixCounter = 0;
+    int rigthMatrixiter = 0;
+    for (int i = 0; i < this->row * matrix.col; i++) {
+        rightMatrixCounter = 0;
+        temp=0;
+        for (int j = 0; j < this->col; j++) {
+
+            unsigned int posGetF = (unsigned int) (j + leftMatrixPointer * this->col);
+            unsigned int posGetS = (unsigned int) (rigthMatrixiter + rightMatrixCounter * matrix.col);
+            rightMatrixCounter++;
+            temp += this->mat.at(posGetF) * matrix.mat.at(posGetS);
+        }
+        rigthMatrixiter++;
+        vec.push_back(temp);
+        if ((i+1) % matrix.col == 0) {
+            leftMatrixPointer++;
+            rigthMatrixiter = 0;
+        }
+    }
+        Matrix result(vec, this->row, matrix.col);
+        return result;
+
+    }
+
 
 Matrix Matrix::operator-(Matrix const & mat) {
     Matrix::checkMatSize(mat);
@@ -151,7 +182,7 @@ Matrix Matrix::operator-() {
 Matrix Matrix::operator+() {
     return (*this);
 }
-Matrix Matrix::operator=(const Matrix & mat) {
+Matrix& Matrix::operator=(const Matrix & mat) {
     this->row = mat.row;
     this->col = mat.col;
     for (int i = 0; i < mat.row*mat.col; ++i) {
