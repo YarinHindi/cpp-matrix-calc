@@ -68,7 +68,7 @@ TEST_CASE("multiply  matrix and more operators check"){
     Matrix unitMatrixMulBy2(unitMulBy2,3,3);
     int byTwo =2;
     for (int i = 0; i <15; ++i) {
-        CHECK_NOTHROW(cout<<unitMatrixMulBy2<<endl);
+//        CHECK_NOTHROW(cout<<unitMatrixMulBy2<<endl);
         bool bol =unitMatrixMulBy2*unitMatrixMulBy2==byTwo*unitMatrixMulBy2;
         CHECK(bol==true);
         CHECK_NOTHROW(unitMatrixMulBy2*=2);
