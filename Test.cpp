@@ -11,7 +11,6 @@ TEST_CASE("Test Matrix constructor and methods on valid matrix for small matrix"
     Matrix matrix2(vec1,4,3);
     CHECK_THROWS(matrix1*matrix1);
     Matrix matrix3 = -matrix2;
-    cout<<matrix1*matrix2<<endl;
     CHECK_THROWS(matrix1+matrix2);
     CHECK_THROWS(bool ans = (matrix1==matrix2));
     CHECK_NOTHROW(3.7*matrix1);
@@ -64,6 +63,28 @@ TEST_CASE("generate bigger matrix and test out put"){
     }
 }
 
-TEST_CASE("multiply two matrix and more"){
-    cout<<"in"<<endl;
+TEST_CASE("multiply  matrix and more operators check"){
+    vector<double> unitMulBy2 = {2, 0, 0, 0, 2, 0, 0, 0, 2};
+    Matrix unitMatrixMulBy2(unitMulBy2,3,3);
+    int byTwo =2;
+    for (int i = 0; i <15; ++i) {
+        CHECK_NOTHROW(cout<<unitMatrixMulBy2<<endl);
+        bool bol =unitMatrixMulBy2*unitMatrixMulBy2==byTwo*unitMatrixMulBy2;
+        CHECK(bol==true);
+        CHECK_NOTHROW(unitMatrixMulBy2*=2);
+        byTwo*=2;
+    }
+    Matrix rowVector(unitMulBy2,9,1);
+    Matrix colVector(unitMulBy2,1,9);
+        CHECK_NOTHROW(rowVector*colVector);
+        CHECK_NOTHROW(colVector*rowVector);
+        CHECK_NOTHROW(++rowVector);
+        CHECK_THROWS(bool bol1 =rowVector<colVector);
+        CHECK_THROWS(bool bol2 =rowVector<colVector);
+        CHECK_THROWS(bool bol3 =rowVector<=colVector);
+        CHECK_THROWS(bool bol4 =rowVector>=colVector);
+        CHECK_THROWS(bool bol5 =rowVector==colVector);
+
+
+
 }

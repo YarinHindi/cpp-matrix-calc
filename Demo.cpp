@@ -44,6 +44,13 @@ int main() {
     /* prints [6 0 0]
               [0 6 0]
               [0 0 6]*/
+    unsigned long result =24000;
+    for (int i = 0; i < 20; ++i) {
+        result+= 0.10*result;
+        result+=24000;
+
+    }
+
     cout << "End of demo!" << endl;
     return 0;
 }

@@ -209,16 +209,19 @@ istream& zich::operator >>(istream& in,Matrix &mat){
 ostream& zich::operator <<(ostream& out,  Matrix const &mat){
     for (int i = 0; i < mat.row*mat.col; ++i) {
         unsigned int pos = (unsigned int)(i);
-        if(i%mat.col==0){
-            out<<"["<<mat.mat.at(pos)<<" ";
-        }else{
-        if((i+1)%mat.col==0) {
-            out << mat.mat.at(pos) << "]" << endl;
-        }else{
-            out <<mat.mat.at(pos)<<" ";
-        }
+        if(mat.col==1) {
+            out << "[" <<mat.mat.at(pos)<<"]"<<endl;
+        }else
+            if (i % mat.col == 0) {
+                out << "[" << mat.mat.at(pos) << " ";
+            } else {
+                if ((i + 1) % mat.col == 0) {
+                    out << mat.mat.at(pos) << "]" << endl;
+                } else {
+                    out << mat.mat.at(pos) << " ";
+                }
+            }
         }
 
-    }
     return out;
 }
